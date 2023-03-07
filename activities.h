@@ -14,8 +14,9 @@
 const int NAME {31};
 const int LOCATION {51};
 const int RECOMMEND {101};
+const int ACTIVITIES {10};
 
-//Activity class
+//Classes
 class activity
 {
 	public:
@@ -30,14 +31,13 @@ class activity
 		char recommend[RECOMMEND];
 		float cost;
 };
-/*
-//Array of activities class
+
 class fun_activities
 {
 	public:
-		activities(); 		//constructor
-		~activities();		//destructor
-		void read_activity(); 	//read in  activities
+		fun_activities(); 		//constructor
+		~fun_activities();		//destructor
+		void read_activities(); //read in  activities
 		void display_all(); 	//display all activities
 		void display_match(); 	//display all difficulty matches
 	private:
@@ -45,5 +45,8 @@ class fun_activities
 		int array_size;
 		int num_of_activities;
 };
-*/
 
+//Prototypes
+void welcome();
+int menu();
+void exit();
