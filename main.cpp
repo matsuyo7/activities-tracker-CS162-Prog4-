@@ -18,7 +18,10 @@ int main()
 		{
 			multiple.display_all();
 		}
-		//if (option == 3)
+		if (option == 3)
+		{
+			multiple.display_match();
+		}
 
 	} while (option != 4);
 	exit();
