@@ -13,9 +13,9 @@ using namespace std;
 activity::activity()
 {
 	name = nullptr;
-	location[0] = '\0';
+	location = nullptr;
 	level = 0;
-	recommend[0] = '\0';
+	recommend = nullptr;
 	cost = 0;
 }
 
@@ -25,6 +25,14 @@ activity::~activity()
 	if (name != nullptr)
 		delete [] name;
 	name = nullptr;
+	if (location != nullptr)
+		delete [] location;
+	location = nullptr;
+	level = 0;
+	if (recommend != nullptr)
+		delete [] recommend;
+	recommend = nullptr;
+	cost = 0;
 }
 
 //Read in the name, locatiom, difficulty level, recommended items, and cost of activity
@@ -38,9 +46,13 @@ void activity::read()
 	name = new char [strlen(temp) + 1];
 	strcpy(name, temp);
 
+	char temp1[LOCATION];
 	cout << "\nEnter the activity location: ";
-	cin.get(location, LOCATION, '\n');
+	cin.get(temp1, LOCATION, '\n');
 	cin.ignore(100, '\n');
+
+	location = new char [strlen(temp1) + 1];
+	strcpy(location, temp1);
 
 	do
 	{
@@ -51,10 +63,14 @@ void activity::read()
 		if (level < 1 || level > 10)
 			cout << "Difficulty out of range, try again" << endl;
 	} while (level < 1 || level > 10);
-
+	
+	char temp2[RECOMMEND];
 	cout << "\nEnter the equipment you recommend to bring: ";
-	cin.get(recommend, RECOMMEND, '\n');
+	cin.get(temp2, RECOMMEND, '\n');
 	cin.ignore(100, '\n');
+
+	recommend = new char [strlen(temp2) + 1];
+	strcpy(recommend, temp2);
 
 	cout << "\nEnter the cost of the activity (e.g. $25.99): ";
 	cin >> cost;
@@ -73,6 +89,16 @@ void activity::display()
 		<< "\nRecommendation(s): " << recommend
 		<< "\nCost of the activity: " << cost << endl;
 }
+
+
+//Get levels into another array
+bool activity::get_level(int match)
+{
+	if (match == level)
+		return true;
+	return false;
+}
+
 //Initialize data members
 fun_activities::fun_activities()
 {
@@ -111,20 +137,46 @@ void fun_activities::read_activities()
 		}
 	} while (num_of_activities < array_size && toupper(response) == 'Y');
 
+	if (num_of_activities == array_size)
+		cout << "\nActivity list is full" << endl;
+
 }
 
 //Display all activities
 void fun_activities::display_all()
 {
+	int count {0};
 	for (int i {0}; i < num_of_activities; ++i)
 	{
 		array[i].display();
+		++count;
 	}
+
+	if (count == 0)
+		cout << "\nNothing to display" << endl;
 }
 
 //Display all level of difficulty matches
 void fun_activities::display_match()
-{}
+{
+	int match {0};
+	int count {0};
+	cout << "\nWhat level of difficulty are you looking for? (1-10): ";
+	cin >> match;
+	cin.ignore(100, '\n');
+	
+	for (int i {0}; i < num_of_activities; ++i)
+	{
+		if (array[i].get_level(match))
+		{
+			array[i].display();
+			++count;
+		}
+	}
+
+	if (count == 0)
+		cout << "\nNo matches found" << endl;
+}
 
 //Welome the user and inform them on what the program does
 void welcome()
