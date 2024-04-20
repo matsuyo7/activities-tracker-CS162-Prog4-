@@ -20,15 +20,16 @@ const int ACTIVITIES {10};
 class activity
 {
 	public:
-		activity();		//constructor
-		~activity();		//destructor
-		void read();		//read in activity
-		void display();		//display the activity
+		activity();			//constructor
+		~activity();			//destructor
+		void read();			//read in activity
+		void display();			//display the activity
+		bool get_level(int match);	//get the specific level into another array
 	private:
 		char * name;
-		char location[LOCATION];
+		char * location;
 		int level;
-		char recommend[RECOMMEND];
+		char * recommend;
 		float cost;
 };
 
@@ -37,9 +38,9 @@ class fun_activities
 	public:
 		fun_activities(); 		//constructor
 		~fun_activities();		//destructor
-		void read_activities(); //read in  activities
-		void display_all(); 	//display all activities
-		void display_match(); 	//display all difficulty matches
+		void read_activities(); 	//read in  activities
+		void display_all(); 		//display all activities
+		void display_match(); 		//display all difficulty matches
 	private:
 		activity * array;
 		int array_size;
